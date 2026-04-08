@@ -12,7 +12,7 @@ intents = discord.Intents.default()
 bot = commands.Bot(
     command_prefix="!",
     intents=intents,
-    activity=discord.Game("24/7 VC Mode"),
+    activity=discord.Game("Elevated 〆"),
     status=discord.Status.online
 )
 
