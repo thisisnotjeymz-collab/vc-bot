@@ -46,8 +46,9 @@ async def connect_to_vc():
 async def on_ready():
     print(f"Logged in as {bot.user}")
 
-    guild = discord.Object(id=GUILD_ID)
-    await bot.tree.sync(guild=guild)  # instant commands
+    guild = discord.Object(id=1490249414667927592)
+    synced = await bot.tree.sync(guild=guild)
+    print(f"Synced {len(synced)} commands")
 
     await connect_to_vc()
 
