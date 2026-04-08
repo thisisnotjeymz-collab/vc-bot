@@ -3,16 +3,26 @@ import asyncio
 import discord
 from discord.ext import commands, tasks
 
+statuses = [
+    discord.Game("Join Veloriax 〆"),
+    discord.Game("Elevated 〆")
+]
+
+@tasks.loop(seconds=10)
+async def change_status():
+    for status in statuses:
+        await bot.change_presence(activity=status)
+        await asyncio.sleep(10)
+
 TOKEN = os.getenv("DISCORD_TOKEN")
 VC_CHANNEL_ID = int(os.getenv("VC_CHANNEL_ID", "0"))
-GUILD_ID = 1490249414667927592
 
 intents = discord.Intents.default()
 
 bot = commands.Bot(
     command_prefix="!",
     intents=intents,
-    activity=discord.Game("Join Veloriax 〆"),
+    activity=discord.Game("Elevated 〆"),
     status=discord.Status.online
 )
 
@@ -50,7 +60,7 @@ async def connect_to_vc():
 @bot.tree.command(name="join", description="Make the bot join the VC")
 async def join(interaction: discord.Interaction):
     await connect_to_vc()
-    await interaction.response.send_message("Joined VC", ephemeral=True)
+    await interaction.response.send_message("Trying to join VC", ephemeral=True)
 
 @bot.tree.command(name="leave", description="Make the bot leave the VC")
 async def leave(interaction: discord.Interaction):
@@ -73,9 +83,11 @@ async def ping(interaction: discord.Interaction):
 async def on_ready():
     print(f"Logged in as {bot.user}")
 
-    guild = discord.Object(id=GUILD_ID)
-    synced = await bot.tree.sync(guild=guild)
+    synced = await bot.tree.sync()
     print(f"Synced {len(synced)} commands")
+
+    if not change_status.is_running():
+        change_status.start()
 
     await connect_to_vc()
 
