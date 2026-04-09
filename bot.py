@@ -94,7 +94,7 @@ async def on_message(message):
     content = message.content.lower()
 
     if "hello" in content:
-        await message.reply("welcome sa veloriax 〆")
+        await message.reply("hellow")
     elif "burat" in content:
         await message.reply("mahilig ka siguro sa burat")
     elif "tangina" in content:
@@ -105,6 +105,8 @@ async def on_message(message):
         await message.reply("ulol mo blue, balik mo muna utak mo bago ka mag chat")
     elif "eduj" in content:
         await message.reply("bading yan!")
+    elif "bobo" in content:
+        await message.reply("mas bobo ka")
 
     await bot.process_commands(message)
 
