@@ -21,6 +21,14 @@ intents = discord.Intents.default()
 
 bot = commands.Bot(
     command_prefix="!",
+intents = discord.Intents.default()
+intents.message_content = True
+intents.guilds = True
+intents.messages = True
+intents.voice_states = True
+
+bot = commands.Bot(
+    command_prefix="!",
     intents=intents,
     activity=discord.Game("Elevated 〆"),
     status=discord.Status.online
