@@ -95,10 +95,16 @@ async def on_message(message):
 
     if "hello" in content:
         await message.reply("welcome sa veloriax 〆")
-    elif "verify" in content:
-        await message.reply("join muna sa roblox community then use /verify and /update")
-    elif "ticket" in content:
-        await message.reply("open a ticket sa panel if may concern ka")
+    elif "burat" in content:
+        await message.reply("mahilig ka siguro sa burat")
+    elif "tangina" in content:
+        await message.reply("tanginamo rin 🖕")
+    elif "help" in content:
+        await message.reply("open a ticket sa desk if may concern ka")
+    elif "ulol" in content:
+        await message.reply("ulol mo blue, balik mo muna utak mo bago ka mag chat")
+    elif "eduj" in content:
+        await message.reply("bading yan!")
 
     await bot.process_commands(message)
 
