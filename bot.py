@@ -8,19 +8,9 @@ statuses = [
     discord.Game("Elevated 〆")
 ]
 
-@tasks.loop(seconds=10)
-async def change_status():
-    for status in statuses:
-        await bot.change_presence(activity=status)
-        await asyncio.sleep(10)
-
 TOKEN = os.getenv("DISCORD_TOKEN")
 VC_CHANNEL_ID = int(os.getenv("VC_CHANNEL_ID", "0"))
 
-intents = discord.Intents.default()
-
-bot = commands.Bot(
-    command_prefix="!",
 intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
@@ -33,6 +23,12 @@ bot = commands.Bot(
     activity=discord.Game("Elevated 〆"),
     status=discord.Status.online
 )
+
+@tasks.loop(seconds=10)
+async def change_status():
+    for status in statuses:
+        await bot.change_presence(activity=status)
+        await asyncio.sleep(10)
 
 async def connect_to_vc():
     if VC_CHANNEL_ID == 0:
@@ -86,6 +82,25 @@ async def leave(interaction: discord.Interaction):
 @bot.tree.command(name="ping", description="Check if the bot is online")
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("Bot is alive", ephemeral=True)
+
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
+
+    if not message.guild:
+        return
+
+    content = message.content.lower()
+
+    if "hello" in content:
+        await message.reply("welcome sa veloriax 〆")
+    elif "verify" in content:
+        await message.reply("join muna sa roblox community then use /verify and /update")
+    elif "ticket" in content:
+        await message.reply("open a ticket sa panel if may concern ka")
+
+    await bot.process_commands(message)
 
 @bot.event
 async def on_ready():
